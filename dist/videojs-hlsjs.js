@@ -1,4 +1,4 @@
-/*! videojs-hlsjs - v1.4.8 - 2017-06-06*/
+/*! videojs-hlsjs - v1.4.8 - 2018-09-28*/
 (function (window, videojs, Hls) {
   'use strict';
 
@@ -8,7 +8,7 @@
   */
   var Component = videojs.getComponent('Component'),
       Tech = videojs.getTech('Tech'),
-      Html5 = videojs.getComponent('Html5');
+      Html5 = videojs.getTech('Html5');
 
   var Hlsjs = videojs.extend(Html5, {
     initHls_: function() {
@@ -239,16 +239,20 @@
 
       for (i = 0; i < hlsGroupTracks.length; i++) {
         var hlsTrack = hlsGroupTracks[i];
+        window.console.log(hlsTrack);
         var vjsTrack = new videojs.AudioTrack({
           type: hlsTrack.type,
           language: hlsTrack.lang,
           label: hlsTrack.name,
-          enabled: isEnabled.bind(this, hlsTrack)()
+          kind: hlsTrack.autoselect ? "main" : "alternative",
+          characteristics: hlsTrack.characteristics,
+          enabled: isEnabled(this.hls_, hlsTrack)
         });
 
         vjsTrack.__hlsTrackId = hlsTrack.id;
         vjsTrack.__hlsGroups = hlsTrack.groups;
         vjsTrack.addEventListener('enabledchange', modeChanged.bind(vjsTrack, this));
+        vjsTrack.addEventListener('change', modeChanged.bind(vjsTrack, this));
         vjsTracks.addTrack(vjsTrack);
       }
     },
@@ -284,7 +288,7 @@
         vjsTrack.__hlsTrack = hlsTrack;
         vjsTrack.__hlsTrack.vjsId = i+1;
         vjsTrack.addEventListener('modechange', modeChanged);
-        vjsTracks.addTrack_(vjsTrack);
+        vjsTracks.addTrack(vjsTrack);
       }
       if (hlsHasDefaultTrack) {
         this.trigger('texttrackchange');
@@ -484,7 +488,7 @@
     hls: {}
   };
 
-  Component.registerComponent('Hlsjs', Hlsjs);
+  // Component.registerComponent('Hlsjs', Hlsjs);
   Tech.registerTech('hlsjs', Hlsjs);
   videojs.options.techOrder.push('hlsjs');
 
