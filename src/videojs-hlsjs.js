@@ -186,11 +186,12 @@
           hlsTracks = this.hls_.audioTracks,
           hlsGroups = [],
           hlsGroupTracks = [],
-          isEnabled = function(track) {
-            var hls = this.hls_;
-            return track.groups.reduce(function (acc, g) {
+          isEnabled = function(track, value) {
+            var hls = this;
+            var isEnabled = track.groups.reduce(function (acc, g) {
               return acc || g.id === hls.audioTrack;
             }, false);
+            return isEnabled;
           },
           modeChanged = function(tech) {
             if (this.enabled) {
@@ -201,10 +202,7 @@
                 }
                 return acc;
               }, this.__hlsTrackId);
-              if (id !== this.__hlsTrackId) {
-                tech.hls_.audioTrack = id;
-              }
-
+              tech.hls_.audioTrack = id;
             }
           };
 
@@ -245,13 +243,13 @@
           label: hlsTrack.name,
           kind: hlsTrack.autoselect ? "main" : "alternative",
           characteristics: hlsTrack.characteristics,
-          enabled: isEnabled(this.hls_, hlsTrack)
         });
 
         vjsTrack.__hlsTrackId = hlsTrack.id;
         vjsTrack.__hlsGroups = hlsTrack.groups;
+        vjsTrack.enabled = isEnabled.bind(this.hls_, hlsTrack);
         vjsTrack.addEventListener('enabledchange', modeChanged.bind(vjsTrack, this));
-        vjsTrack.addEventListener('change', modeChanged.bind(vjsTrack, this));
+        // vjsTrack.addEventListener('change', modeChanged.bind(vjsTrack, this));
         vjsTracks.addTrack(vjsTrack);
       }
     },
@@ -484,7 +482,9 @@
      * @default true
      */
     favorNativeHLS: true,
-    hls: {}
+    hls: {
+      liveDurationInfinity: true
+    }
   };
 
   // Component.registerComponent('Hlsjs', Hlsjs);
