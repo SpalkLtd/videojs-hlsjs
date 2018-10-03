@@ -1,32 +1,37 @@
 {
-  "name": "videojs-hlsjs",
-  "version": "1.4.8",
-  "description": "hls.js playback plugin for videojs",
-  "repository": {
-      "type": "git",
-      "url": "https://github.com/SRGSSR/videojs-hlsjs.git"
-  },
-  "keywords": ["videojs", "videojs-plugin", "hls", "hls.js" ],
-  "license": "MIT",
-  "author": "SRGSSR",
-  "files": [
-    "dist/",
-    "src/",
-    "README.md",
-    "LICENSE-MIT"
-  ],
-  "dependencies": {
-      "video.js": "^5.8.5",
-      "hls.js": "^0.7.0"
-  },
-  "devDependencies": {
-      "grunt": "^1.0.1",
-      "grunt-contrib-clean": "^1.0.0",
-      "grunt-contrib-concat": "^1.0.1",
-      "grunt-contrib-jshint": "^1.1.0",
-      "grunt-contrib-uglify": "^2.0.0",
-      "grunt-contrib-connect": "^1.0.2",
-      "grunt-contrib-watch": "^1.0.0",
-      "load-grunt-tasks": "^3.5.2"
-  }
+    "name": "videojs-hlsjs",
+    "version": "1.4.8",
+    "description": "hls.js playback plugin for videojs",
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/SRGSSR/videojs-hlsjs.git"
+    },
+    "keywords": [
+        "videojs",
+        "videojs-plugin",
+        "hls",
+        "hls.js"
+    ],
+    "license": "MIT",
+    "author": "SRGSSR",
+    "files": [
+        "dist/",
+        "src/",
+        "README.md",
+        "LICENSE-MIT"
+    ],
+    "dependencies": {
+        "video.js": "^5.8.5",
+        "hls.js": "^0.7.0"
+    },
+    "devDependencies": {
+        "grunt": "^1.0.1",
+        "grunt-contrib-clean": "^1.0.0",
+        "grunt-contrib-concat": "^1.0.1",
+        "grunt-contrib-jshint": "^1.1.0",
+        "grunt-contrib-uglify": "^2.0.0",
+        "grunt-contrib-connect": "^1.0.2",
+        "grunt-contrib-watch": "^1.0.0",
+        "load-grunt-tasks": "^3.5.2"
+    }
 }
