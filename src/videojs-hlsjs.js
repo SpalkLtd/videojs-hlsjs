@@ -151,8 +151,7 @@
     });
 
     Hlsjs.isSupported = function(){
-
-      return Hls.isSupported();
+      return Hls && Hls.isSupported();
     };
     Hlsjs.canPlaySource = function (techId, source) {
       // if (Html5.canPlaySource(techId, source)) {
@@ -163,7 +162,7 @@
       //implementation
       var isSafari = /^((?!chrome|android|iphone|ipad).)*safari/i.test(navigator.userAgent);
       if (techId.type === "application/x-mpegURL" && !isSafari){
-        return Hls.isSupported();
+        return Hls && Hls.isSupported();
       } else {
         return false;
       }
